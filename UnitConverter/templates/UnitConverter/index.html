@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ {% if run != "yes" %}
+    <nav>
+        <a href="{% url 'UnitConverter:weight' %}">Weight</a>
+        <a href="{% url 'UnitConverter:temperature' %}">Temperature</a>
+    </nav>
+
+        <form method="post" target="_self" id="back">
+            {% csrf_token %}
+            <h1>Unit Converter</h1>
+            <div>
+                <label for="length">Enter the length to convert: </label>
+                <input type="number" name="length" step="any" id="length" required>
+            </div>
+            <div>
+                <label for="from">Enter the length to convert from: </label>
+                <select name="from_unit" id="from">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="feet">Feet</option>
+                    <option value="inches">Inches</option>
+                    <option value="yards">yards</option>
+                    <option value="millimeters">millimeters</option>
+                    <option value="miles">miles</option>
+                    <option value="centimeters">centimeters</option>
+                </select>
+            </div>
+            <div>
+                <label for="to_unit">Enter the length to convert to :</label>
+                <select name="to_unit" id="to_unit">
+                    <option value="meters">Meters</option>
+                    <option value="kilometers">Kilometers</option>
+                    <option value="feet">Feet</option>
+                    <option value="inches">Inches</option>
+                    <option value="yard">yard</option>
+                    <option value="millimeter">millimeter</option>
+                    <option value="mile">mile</option>
+                    <option value="centimeters">centimeter</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="convert">
+            </div>
+    </form>
+        {% else %}
+            <h1> Result of your calculation </h1>
+            {{ length|stringformat:"s"}} {{from_unit}} = {{ to|stringformat:"s"}} {{to_unit}}
+        <br>
+        <button><a href="{% url  'UnitConverter:index' %}">Reset</a></button>
+{% endif %}
+
+</body>
+</html>

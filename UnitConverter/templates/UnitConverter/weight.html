@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Unit Converter</h1>
+{% if run != "yes" %}
+
+    <nav>
+        <a href="{% url 'UnitConverter:index' %}">Length</a>
+        <a href="{% url 'UnitConverter:temperature' %}">Temperature</a>
+
+    </nav>
+            <form method="post" target="_self" >
+                {% csrf_token %}
+                <div>
+                    <label for="w">Enter the weight to convert: </label>
+                    <input type="number" name="w" step="any" id="w" required>
+                </div>
+                <div>
+                    <label for="from">Enter the length to convert from: </label>
+                    <select name="from_unit" id="from">
+                        <option value="kilogram">Kilogram</option>
+                        <option value="gram">gram</option>
+                        <option value="milligram">milligram</option>
+                        <option value="ounce">ounce</option>
+                        <option value="pound">pound</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="to">Enter the length to convert from: </label>
+                    <select name="to_unit" id="to">
+                        <option value="kilogram">Kilogram</option>
+                        <option value="gram">grams</option>
+                        <option value="milligram">milligram</option>
+                        <option value="ounce">ounce</option>
+                        <option value="pound">pound</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="convert">
+                </div>
+        </form>
+{% else %}
+    <p>Result  of your calculation</p>
+    {{ w|stringformat:"s" }} {{ from_unit }} = {{ to|stringformat:"s"}} {{ to_unit }}
+<br>
+<button><a href="{% url 'UnitConverter:weight' %}">Reset</a></button>
+{% endif %}
+
+
+
+
+</body>
+</html>

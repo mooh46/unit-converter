@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if  run != "yes" %}
+    <nav>
+        <a href="{% url 'UnitConverter:weight' %}">Weight</a>
+        <a href="{% url 'UnitConverter:index' %}">Length</a>
+    </nav>
+
+            <form method="post" target="_self" id="back">
+                {% csrf_token %}
+                <h1>Unit Converter</h1>
+                <div>
+                    <label for="temperature">Enter the temperature to convert: </label>
+                    <input type="number" name="temperature" step="any" id="temperature" required>
+                </div>
+                <div>
+                    <label for="from">Enter the temperature to convert from: </label>
+                    <select name="from_unit" id="from">
+                        <option value="Celsius">Celsius</option>
+                        <option value="Fahrenheit">Fahrenheit</option>
+                        <option value="Kelvin">Kelvin</option>
+
+                    </select>
+                </div>
+                <div>
+                    <label for="to">Enter the length to convert to :</label>
+                    <select name="to_unit" id="to">
+                        <option value="Celsius">Celsius</option>
+                        <option value="Fahrenheit">Fahrenheit</option>
+                        <option value="Kelvin">Kelvin</option>
+
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="convert">
+                </div>
+        </form>
+{% else %}
+    <h1>Result of your calculation</h1>
+    {{ temperature|stringformat:"s" }} {{ from_unit }} = {{ to|stringformat:"s" }} {{ to_unit }}
+    <button><a href="{% url 'UnitConverter:temperature' %}">Reset</a></button>
+{% endif %}
+
+</body>
+</html>
